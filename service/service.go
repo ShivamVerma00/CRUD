@@ -17,6 +17,12 @@ var validate = validator.New()
 func GetAllContacts(response http.ResponseWriter, request *http.Request) {
 	response.Header().Set("Content-Type", "application/json")
 	var contacts []model.Contact
+	
+	//Validation
+	err := validate.Struct(contact)
+	if err != nil {
+		fmt.Println("Invalid input", err)
+	}
 	err := database.GetAllContacs(&contacts)
 	if err != nil {
 		response.WriteHeader(http.StatusInternalServerError)
@@ -52,16 +58,16 @@ func GetContact(response http.ResponseWriter, request *http.Request) {
 
 //Creating Contacts
 func CreateContact(response http.ResponseWriter, request *http.Request) {
-	response.Header().Set("Content-Type", "application/")
+	response.Header().Set("Content-Type", "application/json")
 	var contact model.Contact
-
-	json.NewDecoder(request.Body).Decode(&contact)
-
+	
 	//Validation
 	err := validate.Struct(contact)
 	if err != nil {
 		fmt.Println("Invalid input", err)
 	}
+	json.NewDecoder(request.Body).Decode(&contact)
+
 	err = database.CreateContact(&contact)
 	if err != nil {
 		response.WriteHeader(http.StatusInternalServerError)
