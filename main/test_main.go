@@ -55,6 +55,26 @@ func TestCreateContact(t *testing.T) {
 }
 
 func TestGetAllContacts(t *testing.T) {
+	
+	newContact := []byte(`
+		{
+			"FirstName" : "test",
+			"LastName"	: "last",
+			"Email" 	: "firstlast@gmail.com"
+		}
+	`)
+
+	//creating request
+	req, err := http.NewRequest("POST", "localhost:12345", strings.NewReader(string(newContact)))
+	if err != nil {
+		t.Fatal("Could not create request for CreateContact.\n", err)
+	}
+	//Recorder or ResponseWriter
+	rec := httptest.NewRecorder()
+
+	//passing test database using context
+
+	service.CreateContact(rec, req)
 
 	//creating request
 	req, err := http.NewRequest("GET", "localhost:12345", nil)
@@ -86,6 +106,26 @@ func TestGetAllContacts(t *testing.T) {
 }
 
 func TestUpdateContact(t *testing.T) {
+	
+	newContact := []byte(`
+		{
+			"FirstName" : "test",
+			"LastName"	: "last",
+			"Email" 	: ""
+		}
+	`)
+
+	//creating request
+	req, err := http.NewRequest("POST", "localhost:12345", strings.NewReader(string(newContact)))
+	if err != nil {
+		t.Fatal("Could not create request for CreateContact.\n", err)
+	}
+	//Recorder or ResponseWriter
+	rec := httptest.NewRecorder()
+
+	//passing test database using context
+
+	service.CreateContact(rec, req)
 	updateContact := []byte(`
 		{
 			"FirstName" : "test2",
@@ -132,6 +172,26 @@ func TestUpdateContact(t *testing.T) {
 }
 
 func TestDeleteContact(t *testing.T) {
+	
+	newContact := []byte(`
+		{
+			"FirstName" : "test",
+			"LastName"	: "last",
+			"Email" 	: ""
+		}
+	`)
+
+	//creating request
+	req, err := http.NewRequest("POST", "localhost:12345", strings.NewReader(string(newContact)))
+	if err != nil {
+		t.Fatal("Could not create request for CreateContact.\n", err)
+	}
+	//Recorder or ResponseWriter
+	rec := httptest.NewRecorder()
+
+	//passing test database using context
+
+	service.CreateContact(rec, req)
 
 	req, err := http.NewRequest("DELETE", "localhost:12345", nil)
 	if err != nil {
